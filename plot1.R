@@ -1,8 +1,15 @@
-filepath <- "./data/household_power_consumption.txt"
-powerdata <- read.table(filepath, header=TRUE, sep=";", stringsAsFactors=FALSE, dec=".")
-powersubset<- data[data$Date %in% c("1/2/2007","2/2/2007") ,]
+# Read data into R and subset the dates of interest
 
-globalpower <- as.numeric(powersubset$Global_active_power)
+filepath <- "./data/household_power_consumption.txt"
+powerdata <- read.table(filepath, header=TRUE, sep=";", stringsAsFactors=FALSE)
+powersubset<-subset(powerdata,powerdata$Date=="1/2/2007" | powerdata$Date =="2/2/2007")
+
+#Set graphic device as PNG
 png("plot1.png", width=480, height=480)
-hist(globalActivePower, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)")
+
+#Plot hisotgram
+globalpower <- as.numeric(powersubset$Global_active_power)
+hist(globalpower, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)")
+
+#Switch off graphic device
 dev.off()
